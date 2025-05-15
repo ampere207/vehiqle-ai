@@ -46,6 +46,7 @@ import useFetch from "@/hooks/use-fetch";
 import { getCars, deleteCar, updateCarStatus } from "@/actions/cars";
 import { formatCurrency } from "@/lib/helpers";
 import Image from "next/image";
+import ClientCurrencyFormatter from "../create/_components/ClientCurrencyFormatter";
 
 export const CarsList = () => {
   const router = useRouter();
@@ -196,7 +197,7 @@ export const CarsList = () => {
               <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
             </div>
           ) : carsData?.success && carsData.data.length > 0 ? (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" suppressHydrationWarning>
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -234,7 +235,9 @@ export const CarsList = () => {
                         {car.make} {car.model}
                       </TableCell>
                       <TableCell>{car.year}</TableCell>
-                      <TableCell>{formatCurrency(car.price)}</TableCell>
+                      <TableCell>
+                        <ClientCurrencyFormatter amount={car.price} />
+                      </TableCell>
                       <TableCell>{getStatusBadge(car.status)}</TableCell>
                       <TableCell>
                         <Button

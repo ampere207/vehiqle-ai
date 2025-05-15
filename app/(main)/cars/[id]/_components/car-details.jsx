@@ -32,6 +32,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import EmiCalculator from "./emi-calculator";
+import ClientCurrencyFormatter from "@/app/(admin)/admin/cars/create/_components/ClientCurrencyFormatter";
 
 export function CarDetails({ car, testDriveInfo }) {
   const router = useRouter();
@@ -191,8 +192,10 @@ export function CarDetails({ car, testDriveInfo }) {
             {car.year} {car.make} {car.model}
           </h1>
 
-          <div className="text-2xl font-bold text-blue-600">
-            {formatCurrency(car.price)}
+          <div className="text-2xl font-bold text-blue-600" suppressHydrationWarning>
+            
+             <ClientCurrencyFormatter amount={car.price} />
+
           </div>
 
           {/* Quick Stats */}
